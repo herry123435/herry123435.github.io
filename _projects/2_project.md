@@ -1,16 +1,37 @@
 ---
 layout: page
-title: project 2
-description: a project with a background image and giscus comments
-img: assets/img/3.jpg
-importance: 2
+title: Comparing pre-trained vs. Learned Embeddings for NLP Tasks
+description: 
+img: assets/img/NLPTP_Intro.png
+importance: 3
 category: work
-giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.
 It's easy to include images in a flexible 3-column grid format.
 Make your photos 1/3, 2/3, or full width.
+
+<div class="row justify-content-center my-4">
+  <div class="col-lg-10">
+    <object
+      data="{{ '/assets/pdf/NLPTP.pdf#toolbar=0' | relative_url }}"
+      type="application/pdf"
+      width="100%"
+      height="700"
+    >
+      <iframe
+        src="{{ '/assets/pdf/NLPTP.pdf' | relative_url }}"
+        width="100%"
+        height="700"
+        style="border: none;"
+      ></iframe>
+      <p>
+        브라우저에서 PDF 미리보기를 지원하지 않는 경우입니다.
+        <a href="{{ '/assets/pdf/NLPTP.pdf' | relative_url }}">PDF 다운로드</a>
+      </p>
+    </object>
+  </div>
+</div>
 
 To give your project a background in the portfolio page, just add the img tag to the front matter like so:
 

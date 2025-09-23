@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2024-03-17 07:59:00-0400
 inline: true
 related_posts: false
 ---
 
-A simple inline announcement.
+My idea made [OpenAI to select Turing as a partner company](https://www.aitimes.kr/news/articleView.html?idxno=30636) ! :sparkles:
