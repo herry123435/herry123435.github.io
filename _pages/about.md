@@ -6,7 +6,7 @@ subtitle: Prospective Graduate Student
 
 profile:
   align: right
-  image: id_photo.jpeg
+  image: ID_photo.jpeg
   image_circular: false # crops the image to make it circular
   # more_info: >
   #   <p>555 your office number</p>
