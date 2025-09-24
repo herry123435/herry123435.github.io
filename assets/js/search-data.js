@@ -431,7 +431,7 @@ ninja.data = [{
               window.location.href = "/projects/5_project/";
             },},{id: "projects-learning-dynamics-of-an-autonomous-vehicle",
           title: 'Learning dynamics of an autonomous vehicle',
-          description: "",
+          description: "Work done at DCSL Lab in Georgia Tech",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_project/";
             },},{
