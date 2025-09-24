@@ -2,14 +2,27 @@
 layout: page
 title: Adapter Module for Computer Vision Transformer
 description: 
-img: /assets/img/structure.jpg
-importance: 2
+img: /assets/img/structure.JPG
+importance: 5
 category: work
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+Efficient way to fine-tune large, pre-trained Vision Transformer (ViT) models for new tasks.
+
+The Core Problem and Our Idea 💡 <br>
+State-of-the-art ViT models are massive and powerful, but adapting them to a new, specific dataset (a "downstream task") requires "fine-tuning" the entire model. This is problematic for two main reasons:
+
+1. It's expensive: Training entire parameters in a ViT requires significant computational power and time.
+2. It's inefficient: You have to save a complete, separate copy of the massive model for every single new task.
+
+We looked to the field of Natural Language Processing (NLP), where researchers had developed a clever solution for their transformer models called adapter modules. Our central idea was to see if we could successfully apply this same technique to the computer vision domain with ViTs.
+
+An adapter module is a very small set of new layers that we insert into the existing architecture of a pre-trained model. The key is that we freeze all the original weights of the giant ViT and only train our small, new adapter modules. If this works, we can adapt a ViT to a new task by only training and saving a tiny fraction of the parameters, making the whole process much cheaper and more efficient.
+
+Initially, our project faced significant challenges, as the model consistently suffered from severe overfitting, leading to poor performance. However, this was overcome by implementing improved regularization techniques, including a learning rate warm-up and specific weight initialization methods. This refined approach dramatically unlocked the model's potential, allowing it to achieve near state-of-the-art results, such as 90.5% test accuracy on CIFAR-100.
+
+Ultimately, our work demonstrates that adapter modules hold significant promise and can be a highly effective and useful tool for various computer vision tasks when paired with a proper training regime.
+
 
 <div class="row justify-content-center my-4">
   <div class="col-lg-10">
@@ -32,72 +45,3 @@ Make your photos 1/3, 2/3, or full width.
     </object>
   </div>
 </div>
-
-
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
-
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
-
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
-
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
-
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
-
-{% raw %}
-
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
-
-{% endraw %}

@@ -4,7 +4,7 @@ title: Flip Learning for Math
 description: Idea selected by OpenAI
 img: /assets/img/Flip_Learning.png
 # redirect: https://unsplash.com
-importance: 4
+importance: 3
 category: work
 ---
 

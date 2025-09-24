@@ -7,7 +7,7 @@ importance: 1
 category: work
 ---
 
-In this project, we gave an ability to comprehend and execute complex tasks specified through natural language to robotic agent. The robot determines its next action by integrating real-time visual input from its cameras with the natural language commands it received.
+In this project, we gave an ability to comprehend and execute complex tasks specified through natural language to robotic agent. The robot(Unitree Go1) determines its next action by integrating real-time visual input from its cameras with the natural language commands it received.
 
 The CRAIP system is an integrated pipeline where each component handles a distinct stage of the instruction-to-action process. The workflow begins with human input and culminates in precise robotic motion, all orchestrated within the ROS (Robot Operating System) framework.
 
