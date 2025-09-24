@@ -2,7 +2,7 @@
 layout: page
 title: Adapter Module for Computer Vision Transformer
 description: 
-img: assets/img/structure.jpg
+img: /assets/img/structure.jpg
 importance: 2
 category: work
 ---

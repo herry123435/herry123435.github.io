@@ -2,7 +2,7 @@
 layout: page
 title: Comparing pre-trained vs. Learned Embeddings for NLP Tasks
 description: 
-img: assets/img/NLPTP_Intro.png
+img: /assets/img/NLPTP_Intro.png
 importance: 3
 category: work
 ---

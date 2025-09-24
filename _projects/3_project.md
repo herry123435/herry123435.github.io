@@ -1,81 +1,47 @@
 ---
 layout: page
-title: project 3 with very long name
-description: a project that redirects to another website
-img: assets/img/7.jpg
-redirect: https://unsplash.com
+title: Flip Learning for Math
+description: Idea selected by OpenAI
+img: /assets/img/Flip_Learning.png
+# redirect: https://unsplash.com
 importance: 4
 category: work
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+The flipped learning proposal is based on the observation that students achieve higher academic performance when explaining solutions to others, rather than just solving practice problems themselves.
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
-
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
-
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
-
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
-
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
-
-{% raw %}
-
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
-
-{% endraw %}
+- The method proceeds as follows, as illustrated in the image above:
+    - The teacher assigns practice problems like regular homework.
+    - Students present theproblems to a pre-configured GPT model. The model, as programmed,
+    outputs incorrect solutions.
+    - Students analyze these incorrect solutions, identify errors, and provide hints necessary for
+    problem-solving, thereby guiding the model towards the correct solution process.
+    - Once the model arrives at the correct reasoning process, students submit a record of the
+    conversation logs.
+- The benefits of this approach include followings:
+    - Students can cultivate mathematical and logical thinking skills effectively without being
+    bogged down in complex calculations. This approach helps maintain students interest in
+    mathematics and prevents them from giving up.
+    - It allows students to check concepts they have not understood or merely memorized.
+    According to cognitive theories of multimedia learning, teaching others actively reconstructs
+    ones knowledge, leading to deeper understanding.
+    - The process of teaching the model provides insights into human learning methods. Such
+    data will significantly contribute to enhancing the reasoning capabilities of Large Language
+    Models (LLMs).
+    
+Automatic Generation of Problems, Solutions, and Hints
+- Creating mathematics problems and identifying tricky parts to generate hints is a complex
+task. According to internal research, trained experts of Turing Co.,Ltd. consumes at least 4
+hours to make a well-made high school math problems and hints.
+- Recently, many benchmarks measuring the mathematical abilities of LLMs has been proposed.
+Thanks to this, various methods to improve such benchmarks are being developed. Utilizing
+these techniques can enable the generation of similar problems and provide solutions and
+hints with considerable accuracy.
+- Even though it might not be perfectly accurate, the ability to automatically generate problems,
+solutions, and hintscould significantly reduce teachers’ workload. Teachers would only need to
+review, rather than create problems from scratch when making practice problems and exam
+problems.
+- This will expand the choice of practice problems available to students, regardless of public or
+private education. However, It will especially play a crucial role in enhancing the
+competitiveness of public eduction, as it addresses the weak aspect of public mathematics
+education.
