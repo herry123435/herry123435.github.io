@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Learning dynamics of an autonomous vehicle
-description: 
+description: "<span style='color:#6c757d'>Work done at </span><a href='https://dcsl.gatech.edu/'>DCSL Lab in Georgia Tech</a><span style='color:#6c757d'></span>"
 img: /assets/img/Trajectory_Prediction.gif
 importance: 4
 category: work

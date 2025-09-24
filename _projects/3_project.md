@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Flip Learning for Math
-description: Idea selected by OpenAI
+description: "<span style='color:#6c757d'>Idea selected by </span><a href='https://www.aitimes.kr/news/articleView.html?idxno=30636'>OpenAI</a><span style='color:#6c757d'></span>"
 img: /assets/img/Flip_Learning.png
 # redirect: https://unsplash.com
 importance: 3
