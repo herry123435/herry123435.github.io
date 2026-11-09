@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Prospective Graduate Student
+subtitle: M.S. Student in Robotics, Georgia Tech
 
 profile:
   align: right
@@ -27,6 +27,8 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a final-year undergraduate student in [Computer Science and Engineering Dept. at the Seoul National University](https://cse.snu.ac.kr/). I worked with Prof. Jonghyun Choi(SNU), Prof. Bongwon Suh(SNU), Prof. Panagiotis Tsiotras(Georgia Tech) as an undergraduate researcher.
+I am an M.S. student in Robotics at Georgia Tech, working with Prof. [Ye Zhao](https://lab-idar.gatech.edu/principal-nvestigator/) in the [LIDAR Lab](https://lab-idar.gatech.edu/). I received my B.S. in Computer Science and Engineering from [Seoul National University](https://cse.snu.ac.kr/).
+
+Previously, I worked with Prof. Jonghyun Choi and Prof. Bongwon Suh at Seoul National University, and Prof. Panagiotis Tsiotras at Georgia Tech as an undergraduate researcher.
 
 I aim to build a cognitive physical system that can **understand physical constraints** within a scene, **reason about potential interactions** based on those constraints, and leverage these inferences to perform tasks through **natural language interaction with humans**.

@@ -89,6 +89,8 @@ jobs:
           bundler-cache: true
       - name: Test Scholar citation updates
         run: bundle exec ruby bin/tests/google_scholar_citations_test.rb
+      - name: Test publication author visibility
+        run: bundle exec ruby bin/tests/publication_authors_test.rb
       - name: Restore last published Scholar counts
         # Keep the snapshot on gh-pages, where it cannot expire like an Actions cache.
         run: |
