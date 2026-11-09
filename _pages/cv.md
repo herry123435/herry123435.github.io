@@ -9,5 +9,5 @@ enable_math: false
 enable_masonry: false
 enable_medium_zoom: false
 enable_publication_badges: false
-description: 
+description:
 ---
