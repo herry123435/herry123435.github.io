@@ -16,6 +16,7 @@ layout: default
             target="_blank"
             rel="noopener noreferrer"
             class="float-right"
+            aria-label="Open CV PDF"
           >
             <i class="fa-solid fa-file-pdf"></i>
           </a>
@@ -27,15 +28,7 @@ layout: default
     </header>
 
     {% if page.cv_pdf %}
-    <div class="pdf-preview mt-3">
-      <iframe
-        src="{% if page.cv_pdf contains '://' %}{{ page.cv_pdf }}{% else %}{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}{% endif %}"
-        width="100%"
-        height="1000px"
-        frameborder="0"
-        style="border: 1px solid #ddd;"
-      ></iframe>
-    </div>
+      {% include cv/pdf.liquid %}
     {% endif %}
 
     <article>
@@ -79,6 +72,7 @@ layout: default
             target="_blank"
             rel="noopener noreferrer"
             class="float-right"
+            aria-label="Open CV PDF"
           >
             <i class="fa-solid fa-file-pdf"></i>
           </a>
@@ -90,15 +84,7 @@ layout: default
     </header>
 
     {% if page.cv_pdf %}
-    <div class="pdf-preview mt-3">
-      <iframe
-        src="{% if page.cv_pdf contains '://' %}{{ page.cv_pdf }}{% else %}{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}{% endif %}"
-        width="100%"
-        height="1000px"
-        frameborder="0"
-        style="border: 1px solid #ddd;"
-      ></iframe>
-    </div>
+      {% include cv/pdf.liquid %}
     {% endif %}
 
     <article>

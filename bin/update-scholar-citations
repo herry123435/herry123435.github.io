@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require 'bibtex'
+require_relative 'lib/google_scholar_citations'
+
+root = File.expand_path('..', __dir__)
+path = File.join(root, '_data/google_scholar_citations.yml')
+
+begin
+  socials = YAML.safe_load_file(File.join(root, '_data/socials.yml'))
+  bibliography = BibTeX.open(File.join(root, '_bibliography/papers.bib'))
+  article_ids = bibliography.entries.values.filter_map { |entry| entry[:google_scholar_id]&.to_s }.uniq
+  cache = GoogleScholarCitations.refresh(path, socials.fetch('scholar_userid'), article_ids)
+  puts "Updated #{cache.fetch('publications').size} Scholar citation counts at #{cache.fetch('fetched_at')}"
+rescue StandardError => error
+  warning = "Google Scholar refresh failed; keeping the last verified citation counts. #{error.class}: #{error.message}"
+  warn ENV['GITHUB_ACTIONS'] ? "::warning::#{warning.gsub(/\s+/, ' ')}" : warning
+  exit 1
+end

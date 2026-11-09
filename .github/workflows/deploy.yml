@@ -9,6 +9,8 @@ on:
       - "assets/**"
       - "_sass/**"
       - "_scripts/**"
+      - "_plugins/**"
+      - "bin/**"
       - "**.bib"
       - "**.html"
       - "**.js"
@@ -38,6 +40,8 @@ on:
       - "assets/**"
       - "_sass/**"
       - "_scripts/**"
+      - "_plugins/**"
+      - "bin/**"
       - "**.bib"
       - "**.html"
       - "**.js"
@@ -60,6 +64,13 @@ on:
       - "!INSTALL.md"
       - "!README.md"
   workflow_dispatch:
+  schedule:
+    # Refresh citation counts even when no source files have changed.
+    - cron: "17 9 * * *"
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -76,6 +87,22 @@ jobs:
         with:
           ruby-version: "3.3.5"
           bundler-cache: true
+      - name: Test Scholar citation updates
+        run: bundle exec ruby bin/tests/google_scholar_citations_test.rb
+      - name: Restore last published Scholar counts
+        # Keep the snapshot on gh-pages, where it cannot expire like an Actions cache.
+        run: |
+          if git fetch --no-tags --depth=1 origin gh-pages; then
+            if git show FETCH_HEAD:assets/data/google_scholar_citations.yml > "$RUNNER_TEMP/scholar-citations.yml"; then
+              cp "$RUNNER_TEMP/scholar-citations.yml" _data/google_scholar_citations.yml
+            fi
+          fi
+      - name: Refresh Google Scholar counts
+        id: scholar
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        timeout-minutes: 2
+        run: bundle exec ruby bin/update-scholar-citations
       - name: Setup Python 🐍
         uses: actions/setup-python@v5
         with:
@@ -94,6 +121,8 @@ jobs:
           pip3 install --upgrade nbconvert
           export JEKYLL_ENV=production
           bundle exec jekyll build
+          mkdir -p _site/assets/data
+          cp _data/google_scholar_citations.yml _site/assets/data/google_scholar_citations.yml
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss

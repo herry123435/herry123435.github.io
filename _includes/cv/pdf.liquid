@@ -1,0 +1,23 @@
+{% if page.cv_pdf contains '://' %}
+  {% assign cv_pdf_url = page.cv_pdf %}
+{% else %}
+  {% assign cv_pdf_url = page.cv_pdf | prepend: 'assets/pdf/' | relative_url %}
+{% endif %}
+
+<div class="pdf-preview mt-3">
+  <p>
+    <a href="{{ cv_pdf_url }}" target="_blank" rel="noopener noreferrer">Open PDF</a>
+    &middot;
+    <a href="{{ cv_pdf_url }}" download>Download PDF</a>
+    <br>
+    <small>If the preview does not load, open or download the PDF.</small>
+  </p>
+  <iframe
+    src="{{ cv_pdf_url }}"
+    title="Curriculum vitae PDF preview"
+    loading="lazy"
+    width="100%"
+    height="1000"
+    style="border: 1px solid var(--global-divider-color);"
+  ></iframe>
+</div>
