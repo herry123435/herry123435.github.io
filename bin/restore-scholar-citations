@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require_relative 'lib/google_scholar_citations'
+
+root = File.expand_path('..', __dir__)
+path = File.join(root, '_data/google_scholar_citations.yml')
+published_path = ARGV.fetch(0) { abort 'Usage: bundle exec ruby bin/restore-scholar-citations PUBLISHED_SNAPSHOT.yml' }
+
+begin
+  socials = YAML.safe_load_file(File.join(root, '_data/socials.yml'))
+  restored = GoogleScholarCitations.restore(path, published_path, socials.fetch('scholar_userid'))
+  if restored
+    puts 'Restored newer published Scholar counts with complete publication coverage.'
+  else
+    puts 'Kept checked-in Scholar counts; published snapshot was not newer, complete, and valid for this profile.'
+  end
+rescue StandardError => error
+  warning = "Scholar snapshot restore failed; keeping checked-in counts. #{error.class}: #{error.message}"
+  warn ENV['GITHUB_ACTIONS'] ? "::warning::#{warning.gsub(/\s+/, ' ')}" : warning
+end

@@ -41,6 +41,25 @@ module GoogleScholarCitations
     URI.open(url, 'User-Agent' => 'Mozilla/5.0 (compatible; academic-publications-site)', open_timeout: 10, read_timeout: 20, &:read)
   end
 
+  # Published data must never roll back a newer checked-in snapshot or remove
+  # newly added publications. Reject incomplete snapshots instead of merging
+  # records with different verification times under one fetched_at timestamp.
+  def self.restore(path, published_path, scholar_id)
+    return false unless File.file?(published_path)
+
+    source = read_snapshot(path)
+    published = read_snapshot(published_path)
+    return false unless source['scholar_userid'] == scholar_id && published['scholar_userid'] == scholar_id
+    return false unless Time.iso8601(published['fetched_at']) > Time.iso8601(source['fetched_at'])
+    return false unless (source['publications'].keys - published['publications'].keys).empty?
+
+    write_snapshot(path, published)
+    true
+  rescue Psych::Exception, InvalidProfile, ArgumentError => error
+    warn "Invalid Scholar snapshot; keeping checked-in counts. #{error.class}: #{error.message}"
+    false
+  end
+
   def self.refresh(path, scholar_id, article_ids, fetch: method(:fetch_profile), now: Time.now.utc)
     raise InvalidProfile, 'No Google Scholar publication IDs configured' if article_ids.empty?
     raise InvalidProfile, 'No Google Scholar author ID configured' if scholar_id.to_s.empty?
@@ -58,11 +77,28 @@ module GoogleScholarCitations
 
     # Replace only after every expected article has been verified. A failed
     # request or incomplete profile leaves the previous file entirely intact.
+    write_snapshot(path, cache)
+    cache
+  end
+
+  def self.read_snapshot(path)
+    snapshot = YAML.safe_load_file(path)
+    unless snapshot.is_a?(Hash) && snapshot['scholar_userid'].is_a?(String) && !snapshot['scholar_userid'].empty? &&
+           snapshot['fetched_at'].is_a?(String) && snapshot['publications'].is_a?(Hash) && !snapshot['publications'].empty? &&
+           snapshot['publications'].all? { |id, count| id.is_a?(String) && !id.empty? && count.is_a?(Integer) && count >= 0 }
+      raise InvalidProfile, 'Snapshot must contain an author, verification time, and nonnegative integer citation counts'
+    end
+    Time.iso8601(snapshot['fetched_at'])
+    snapshot
+  end
+
+  def self.write_snapshot(path, cache)
     Tempfile.create(['google-scholar-citations', '.yml'], File.dirname(path)) do |file|
       file.write(YAML.dump(cache))
       file.flush
       File.rename(file.path, path)
     end
-    cache
   end
+
+  private_class_method :read_snapshot, :write_snapshot
 end

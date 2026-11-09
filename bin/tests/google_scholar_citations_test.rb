@@ -118,6 +118,92 @@ class GoogleScholarCitationsTest < Minitest::Test
     end
   end
 
+  def with_published_cache(timestamp: '2026-11-09T05:17:36Z', author: SCHOLAR_ID, publications: { ARTICLE_ID => 99 })
+    with_cache do |path|
+      published = File.join(File.dirname(path), 'published.yml')
+      File.write(published, YAML.dump({
+        'scholar_userid' => author,
+        'fetched_at' => timestamp,
+        'publications' => publications
+      }))
+      yield path, published
+    end
+  end
+
+  def test_restore_keeps_a_newer_checked_in_snapshot_byte_for_byte
+    with_published_cache(timestamp: '2024-12-31T23:59:59Z') do |path, published|
+      previous = File.binread(path)
+      refute GoogleScholarCitations.restore(path, published, SCHOLAR_ID)
+      assert_equal previous, File.binread(path)
+    end
+  end
+
+  def test_restore_accepts_a_newer_valid_published_snapshot
+    with_published_cache do |path, published|
+      assert GoogleScholarCitations.restore(path, published, SCHOLAR_ID)
+      assert_equal({
+        'scholar_userid' => SCHOLAR_ID,
+        'fetched_at' => '2026-11-09T05:17:36Z',
+        'publications' => { ARTICLE_ID => 99 }
+      }, YAML.safe_load_file(path))
+    end
+  end
+
+  def test_restore_keeps_the_source_when_published_timestamp_is_equal
+    with_published_cache(timestamp: '2025-01-01T00:00:00Z') do |path, published|
+      previous = File.binread(path)
+      refute GoogleScholarCitations.restore(path, published, SCHOLAR_ID)
+      assert_equal previous, File.binread(path)
+    end
+  end
+
+  def test_restore_rejects_a_different_scholar_author_without_changes
+    with_published_cache(author: 'different-author') do |path, published|
+      previous = File.binread(path)
+      refute GoogleScholarCitations.restore(path, published, SCHOLAR_ID)
+      assert_equal previous, File.binread(path)
+    end
+  end
+
+  def test_restore_never_drops_a_newly_added_publication
+    with_published_cache do |path, published|
+      source = YAML.safe_load_file(path)
+      source['publications']['4DMP91E08xMC'] = 0
+      File.write(path, YAML.dump(source))
+      previous = File.binread(path)
+      refute GoogleScholarCitations.restore(path, published, SCHOLAR_ID)
+      assert_equal previous, File.binread(path)
+    end
+  end
+
+  def test_restore_rejects_invalid_yaml_and_invalid_cache_fields_without_changes
+    with_published_cache do |path, published|
+      previous = File.binread(path)
+      valid = YAML.safe_load_file(published)
+      invalid_snapshots = [
+        'publications: [',
+        YAML.dump('not a cache'),
+        YAML.dump(valid.merge('fetched_at' => 'not a timestamp')),
+        YAML.dump(valid.merge('publications' => { ARTICLE_ID => -1 })),
+        YAML.dump(valid.merge('publications' => { ARTICLE_ID => '99' })),
+        YAML.dump(valid.merge('publications' => {}))
+      ]
+      invalid_snapshots.each do |invalid|
+        File.write(published, invalid)
+        capture_io { refute GoogleScholarCitations.restore(path, published, SCHOLAR_ID) }
+        assert_equal previous, File.binread(path)
+      end
+    end
+  end
+
+  def test_restore_keeps_source_when_no_published_snapshot_exists
+    with_cache do |path|
+      previous = File.binread(path)
+      refute GoogleScholarCitations.restore(path, "#{path}.missing", SCHOLAR_ID)
+      assert_equal previous, File.binread(path)
+    end
+  end
+
   def render_count(count: nil, author: SCHOLAR_ID, fallback: nil)
     cache = { 'scholar_userid' => author, 'publications' => { ARTICLE_ID => count } }
     context = {

@@ -94,7 +94,7 @@ jobs:
         run: |
           if git fetch --no-tags --depth=1 origin gh-pages; then
             if git show FETCH_HEAD:assets/data/google_scholar_citations.yml > "$RUNNER_TEMP/scholar-citations.yml"; then
-              cp "$RUNNER_TEMP/scholar-citations.yml" _data/google_scholar_citations.yml
+              bundle exec ruby bin/restore-scholar-citations "$RUNNER_TEMP/scholar-citations.yml"
             fi
           fi
       - name: Refresh Google Scholar counts
